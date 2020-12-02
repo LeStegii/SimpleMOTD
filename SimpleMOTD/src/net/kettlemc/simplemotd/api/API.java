@@ -36,7 +36,7 @@ public class API {
 		sendMOTD(player, 0);
 	}
 
-	// Returns a list of all motd lines (without replaced placeholders)
+	// Returns a list of all motd lines (without replaced placeholders or colorcodes)
 
 	public List<String> getMOTDList() {
 		return plugin.getConfiguration().getMotd();
