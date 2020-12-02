@@ -42,7 +42,7 @@ public class API {
 		return plugin.getConfiguration().getMotd();
 	}
 
-	// Returns a the motd message (without replaced placeholders)
+	// Returns the motd message (without replaced placeholders)
 
 	public String getMOTD() {
 		StringBuilder sb = new StringBuilder();
