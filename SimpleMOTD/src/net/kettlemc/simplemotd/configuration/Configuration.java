@@ -19,7 +19,7 @@ public class Configuration {
 
 	@SuppressWarnings("unchecked")
 	private void loadConfig() {
-		this.motd = (List<String>) config.getValue("motd", Arrays.asList("&7Welcome to the server, &a%player%&7.", "&7Have fun while playing!"));
+		this.motd = (List<String>) config.getValue("motd", Arrays.asList("&7Welcome to the server, &a%player%&7.", "&7Have fun while playing!", "&a%currentPlayers%&8/&a%maxPlayers% &7players are online right now."));
 		this.useBypassPerm = config.getBool("settings.bypass.usePerm", false);
 		this.bypassPerm = config.getString("settings.bypass.permission", "SimpleMOTD.bypass");
 		this.delay = config.getInt("settings.delay.seconds", 0);

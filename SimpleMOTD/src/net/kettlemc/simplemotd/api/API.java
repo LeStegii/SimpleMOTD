@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import net.kettlemc.simplemotd.SimpleMOTD;
+import net.kettlemc.simplemotd.utils.Utils;
 import net.md_5.bungee.api.ChatColor;
 
 public class API {
@@ -23,8 +24,7 @@ public class API {
 
 			@Override
 			public void run() {
-				for (String message : plugin.getConfiguration().getMotd())
-					player.sendMessage(ChatColor.translateAlternateColorCodes('&', message.replace("%player%", player.getName())));
+				player.sendMessage(getMOTD(player));
 			}
 
 		}, delay);
@@ -36,20 +36,30 @@ public class API {
 		sendMOTD(player, 0);
 	}
 
-	// Returns a list of all motd lines (without replaced placeholders or colorcodes)
+	// Returns a list of all motd lines (without replaced placeholders or
+	// colorcodes)
 
 	public List<String> getMOTDList() {
 		return plugin.getConfiguration().getMotd();
 	}
 
-	// Returns the motd message (without replaced placeholders)
+	// Replaces all placeholders and colorcodes in a message
 
-	public String getMOTD() {
+	public String replacePlaceholders(String raw, Player player) {
+		raw = raw.replace("%player%", player.getName());
+		raw = raw.replace("%currentPlayers%", String.valueOf(Utils.getPlayerCount()));
+		raw = raw.replace("%maxPlayers%", String.valueOf(Bukkit.getMaxPlayers()));
+		return ChatColor.translateAlternateColorCodes('&', raw);
+	}
+
+	// Returns the full motd message
+
+	public String getMOTD(Player player) {
 		StringBuilder sb = new StringBuilder();
 		for (String message : getMOTDList()) {
 			sb.append(message + "\n");
 		}
-		return ChatColor.translateAlternateColorCodes('&', sb.toString());
+		return replacePlaceholders(sb.toString(), player);
 	}
 
 }
